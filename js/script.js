@@ -10,7 +10,7 @@ const state = {
     api: {
         //Api key is showing because this is a small project
         apiKey: 'e3bcd3ddedc1aeb5f13eda82709a14e1',
-        apiUrl : 'http://api.themoviedb.org/3/'
+        apiUrl : 'https://api.themoviedb.org/3'
         
     }
 };
