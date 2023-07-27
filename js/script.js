@@ -1,41 +1,39 @@
 const state = {
-    currentPage: window.location.pathname,
-    search: {
-        term: '',
-        type: '',
-        page: 1,
-        totalPages: 1,
-        totalResults: 0
-    },
-    api: {
-        //Api key is showing because this is a small project
-        apiKey: 'e3bcd3ddedc1aeb5f13eda82709a14e1',
-        apiUrl : 'https://api.themoviedb.org/3'
-        
-    }
+  currentPage: window.location.pathname,
+  search: {
+    term: '',
+    type: '',
+    page: 1,
+    totalPages: 1,
+    totalResults: 0,
+  },
+  api: {
+    //Api key is showing because this is a small project
+    apiKey: 'e3bcd3ddedc1aeb5f13eda82709a14e1',
+    apiUrl: 'https://api.themoviedb.org/3',
+  },
 };
 
 //Display Popular Movies
 async function displayPopularMovies() {
-    const { results } = await fetchAPIData('movie/popular');
-    results.forEach(movie => {
-        const movieDiv = document.createElement('div');
-        movieDiv.classList.add('card')
-        movieDiv.innerHTML = `
+  const { results } = await fetchAPIData('movie/popular');
+  results.forEach((movie) => {
+    const movieDiv = document.createElement('div');
+    movieDiv.classList.add('card');
+    movieDiv.innerHTML = `
           <a href="movie-details.html?id=${movie.id}">
          ${
-            movie.poster_path
-            ?  `<img
+           movie.poster_path
+             ? `<img
               src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
               class="card-img-top"
               alt="${movie.title}"
             />`
-            :` <img
+             : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
               alt="${movie.title}"
             />`
-            
          }
           </a>
           <div class="card-body">
@@ -46,31 +44,30 @@ async function displayPopularMovies() {
           </div>
         `;
 
-        document.querySelector('#popular-movies').appendChild(movieDiv);
-    });
+    document.querySelector('#popular-movies').appendChild(movieDiv);
+  });
 }
 
 //Display Popular Tv Shows
 async function displayPopularShows() {
-    const { results } = await fetchAPIData('tv/popular');
-    results.forEach(show => {
-        const showsDiv = document.createElement('div');
-        showsDiv.classList.add('card')
-        showsDiv.innerHTML = `
+  const { results } = await fetchAPIData('tv/popular');
+  results.forEach((show) => {
+    const showsDiv = document.createElement('div');
+    showsDiv.classList.add('card');
+    showsDiv.innerHTML = `
           <a href="tv-details.html?id=${show.id}">
          ${
-            show.poster_path
-            ?  `<img
+           show.poster_path
+             ? `<img
               src="https://image.tmdb.org/t/p/w500${show.poster_path}"
               class="card-img-top"
               alt="${show.name}"
             />`
-            :` <img
+             : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
               alt="${show.name}"
             />`
-            
          }
           </a>
           <div class="card-body">
@@ -81,36 +78,35 @@ async function displayPopularShows() {
           </div>
         `;
 
-        document.querySelector('#popular-shows').appendChild(showsDiv);
-    });
+    document.querySelector('#popular-shows').appendChild(showsDiv);
+  });
 }
 
 // Display Movie Details
 async function displayMovieDetails() {
-    const movieId = window.location.search.split('=')[1];
-    const movie = await fetchAPIData(`movie/${movieId}`);
-    
-    //backdrop image
-    displayBackgroundImage('movie', movie.backdrop_path);
+  const movieId = window.location.search.split('=')[1];
+  const movie = await fetchAPIData(`movie/${movieId}`);
 
-    const div = document.createElement('div');
-    div.innerHTML = `
+  //backdrop image
+  displayBackgroundImage('movie', movie.backdrop_path);
+
+  const div = document.createElement('div');
+  div.innerHTML = `
      <div class="details-top">
           <div>
              ${
-            movie.poster_path
-            ?  `<img
+               movie.poster_path
+                 ? `<img
               src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
               class="card-img-top"
               alt="${movie.title}"
             />`
-            :` <img
+                 : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
               alt="${movie.title}"
             />`
-            
-         }
+             }
           </div>
           <div>
             <h2>${movie.title}</h2>
@@ -128,7 +124,9 @@ async function displayMovieDetails() {
 
           </ul>
 
-          <a href="${movie.homepage}" target="_blank" class="btn">Visit Movie Homepage</a>
+          <a href="${
+            movie.homepage
+          }" target="_blank" class="btn">Visit Movie Homepage</a>
 
           </div>
 
@@ -137,48 +135,51 @@ async function displayMovieDetails() {
         <div class="details-bottom">
           <h2>Movie Info</h2>
           <ul>
-            <li><span class="text-secondary">Budget:</span> $${addCommasToNumbers(movie.budget)}</li>
-            <li><span class="text-secondary">Revenue:</span> $${addCommasToNumbers(movie.revenue)}</li>
-            <li><span class="text-secondary">Runtime:</span> ${movie.runtime} minutes</li>
+            <li><span class="text-secondary">Budget:</span> $${addCommasToNumbers(
+              movie.budget
+            )}</li>
+            <li><span class="text-secondary">Revenue:</span> $${addCommasToNumbers(
+              movie.revenue
+            )}</li>
+            <li><span class="text-secondary">Runtime:</span> ${
+              movie.runtime
+            } minutes</li>
             <li><span class="text-secondary">Status:</span> ${movie.status}</li>
           </ul>
           <h4>Production Companies</h4>
-          <div class="list-group"> ${movie.production_companies.map((company) => `<span>${company.name}</span>`).join(', ')}</div>
-        </div>`
+          <div class="list-group"> ${movie.production_companies
+            .map((company) => `<span>${company.name}</span>`)
+            .join(', ')}</div>
+        </div>`;
 
-    document.querySelector('#movie-details').appendChild(div);
-
+  document.querySelector('#movie-details').appendChild(div);
 }
-
-
 
 //Display Show details
 async function displayShowDetails() {
-    const showId = window.location.search.split('=')[1];
-    const show = await fetchAPIData(`tv/${showId}`);
-   
-    
-    //backdrop image
-    displayBackgroundImage('tv', show.backdrop_path);
+  const showId = window.location.search.split('=')[1];
+  const show = await fetchAPIData(`tv/${showId}`);
 
-    const div = document.createElement('div');
-    div.innerHTML = `
+  //backdrop image
+  displayBackgroundImage('tv', show.backdrop_path);
+
+  const div = document.createElement('div');
+  div.innerHTML = `
      <div class="details-top">
           <div>
              ${
-            show.poster_path
-            ?  `<img
+               show.poster_path
+                 ? `<img
               src="https://image.tmdb.org/t/p/w500${show.poster_path}"
               class="card-img-top"
               alt="${show.name}"
             />`
-            :` <img
+                 : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
               alt="${show.name}"
             />`
-            
-         }
+             }
           </div>
           <div>
             <h2>${show.name}</h2>
@@ -196,7 +197,9 @@ async function displayShowDetails() {
 
           </ul>
 
-          <a href="${show.homepage}" target="_blank" class="btn">Visit Show Homepage</a>
+          <a href="${
+            show.homepage
+          }" target="_blank" class="btn">Visit Show Homepage</a>
 
           </div>
 
@@ -205,52 +208,57 @@ async function displayShowDetails() {
         <div class="details-bottom">
           <h2>Movie Info</h2>
           <ul>
-            <li><span class="text-secondary">Number of Episodes</span> ${show.number_of_episodes}</li>
-            <li><span class="text-secondary">Number of Seasons</span> ${show.number_of_seasons}</li>
-            <li><span class="text-secondary">Last Episode to Air:</span> ${show.last_episode_to_air.name}</li>
+            <li><span class="text-secondary">Number of Episodes</span> ${
+              show.number_of_episodes
+            }</li>
+            <li><span class="text-secondary">Number of Seasons</span> ${
+              show.number_of_seasons
+            }</li>
+            <li><span class="text-secondary">Last Episode to Air:</span> ${
+              show.last_episode_to_air.name
+            }</li>
             <li><span class="text-secondary">Status:</span> ${show.status}</li>
           </ul>
           <h4>Production Companies</h4>
-          <div class="list-group"> ${show.production_companies.map((company) => `<span>${company.name}</span>`).join(', ')}</div>
-        </div>`
+          <div class="list-group"> ${show.production_companies
+            .map((company) => `<span>${company.name}</span>`)
+            .join(', ')}</div>
+        </div>`;
 
-    document.querySelector('#show-details').appendChild(div);
-
+  document.querySelector('#show-details').appendChild(div);
 }
-
 
 //To Display Backdrop to Movie/show Details page
-function displayBackgroundImage(type,backgroundPath) {
-    const overlayDiv = document.createElement('div');
-    overlayDiv.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backgroundPath})`;
-    overlayDiv.style.backgroundSize = 'cover';
-    overlayDiv.style.backgroundPosition = 'center';
-    overlayDiv.style.backgroundRepeat = 'no-repeat';
-    overlayDiv.style.height = '100vh';
-    overlayDiv.style.width = '100vw';
-    overlayDiv.style.position = 'absolute';
-    overlayDiv.style.top = '0';
-    overlayDiv.style.left = '0';
-    overlayDiv.style.zIndex = '-1';
-    overlayDiv.style.opacity = '0.1';
+function displayBackgroundImage(type, backgroundPath) {
+  const overlayDiv = document.createElement('div');
+  overlayDiv.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backgroundPath})`;
+  overlayDiv.style.backgroundSize = 'cover';
+  overlayDiv.style.backgroundPosition = 'center';
+  overlayDiv.style.backgroundRepeat = 'no-repeat';
+  overlayDiv.style.height = '100vh';
+  overlayDiv.style.width = '100vw';
+  overlayDiv.style.position = 'absolute';
+  overlayDiv.style.top = '0';
+  overlayDiv.style.left = '0';
+  overlayDiv.style.zIndex = '-1';
+  overlayDiv.style.opacity = '0.1';
 
-    if (type === 'movie') {
-        document.querySelector('#movie-details').appendChild(overlayDiv);
-    } else {
-        document.querySelector('#show-details').appendChild(overlayDiv);
-    }
+  if (type === 'movie') {
+    document.querySelector('#movie-details').appendChild(overlayDiv);
+  } else {
+    document.querySelector('#show-details').appendChild(overlayDiv);
+  }
 }
-
 
 //To Display Slider Movies
 async function displaySlider() {
-    const { results } = await fetchAPIData('movie/now_playing');
-    console.log(results);
+  const { results } = await fetchAPIData('movie/now_playing');
+  console.log(results);
 
-    results.forEach(movie => {
-        const sliderDiv = document.createElement('div');
-        sliderDiv.classList.add('swiper-slide');
-        sliderDiv.innerHTML = `
+  results.forEach((movie) => {
+    const sliderDiv = document.createElement('div');
+    sliderDiv.classList.add('swiper-slide');
+    sliderDiv.innerHTML = `
            <a href="movie-details.html?id=${movie.id}">
               <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.original_title}" />
             </a>
@@ -258,303 +266,248 @@ async function displaySlider() {
               <i class="fas fa-star text-secondary"></i> ${movie.vote_average} /10
             </h4>
      
-     ` ;
-        
-        document.querySelector('.swiper-wrapper').appendChild(sliderDiv);
+     `;
 
-        initSwiper();
-    });
+    document.querySelector('.swiper-wrapper').appendChild(sliderDiv);
+
+    initSwiper();
+  });
 }
 
 function initSwiper() {
-     const swiper = new Swiper('.swiper', {
-         slidesPerView : 1,
-         spaceBetween: 30,
-         freeMode: true,
-         loop: true,
-         autoplay: {
-             delay: 4000,
-             disableOnInteraction: false
-         },
-         breakpoints: {
-             500: {
-                 slidesPerView: 2,
-             },
-              700: {
-                 slidesPerView: 3,
-             },
-               1200: {
-                 slidesPerView: 4,
-             },
-         }
-
-     })
- }
- 
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    freeMode: true,
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      500: {
+        slidesPerView: 2,
+      },
+      700: {
+        slidesPerView: 3,
+      },
+      1200: {
+        slidesPerView: 4,
+      },
+    },
+  });
+}
 
 //To search movies/shows
 async function search() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
 
-    state.search.type = urlParams.get('type');
-    state.search.term = urlParams.get('search-term');
+  state.search.type = urlParams.get('type');
+  state.search.term = urlParams.get('search-term');
 
-
-if (state.search.term !== '' && state.search.term !== null) {
+  if (state.search.term !== '' && state.search.term !== null) {
     const { results, total_pages, page, total_results } = await searchAPIData();
-    
+
     state.search.page = page;
     state.search.totalPages = total_pages;
     state.search.totalResults = total_results;
-    
-if (results.length === 0) {
-    showAlert('No results found');
-    return;
-}
 
-    displaySearchResults(results)
+    if (results.length === 0) {
+      showAlert('No results found');
+      return;
+    }
+
+    displaySearchResults(results);
 
     document.querySelector('#search-term').value = '';
-    
-} else {
+  } else {
     showAlert('please enter a search item');
-}  
-    
+  }
 }
 
-
 //To display search result
- async function displaySearchResults(results) {
+async function displaySearchResults(results) {
+  // To clear previous results
+  document.querySelector('#search-results').innerHTML = '';
+  document.querySelector('#search-results-heading').innerHTML = '';
+  document.querySelector('#pagination').innerHTML = '';
 
-   
-// To clear previous results
-    document.querySelector('#search-results').innerHTML = '';
-    document.querySelector('#search-results-heading').innerHTML = '';
-    document.querySelector('#pagination').innerHTML = '';
-
-
-       
-    results.forEach(result => {
-        const div = document.createElement('div');
-        div.classList.add('card')
-        div.innerHTML = `
+  results.forEach((result) => {
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.innerHTML = `
           <a href="${state.search.type}-details.html?id=${result.id}">
          ${
-            result.poster_path
-            ?  `<img
+           result.poster_path
+             ? `<img
               src="https://image.tmdb.org/t/p/w500/${result.poster_path}"
               class="card-img-top"
-              alt="${state.search.type === 'movie' ? result.title :
-            result.name}"
+              alt="${
+                state.search.type === 'movie' ? result.title : result.name
+              }"
             />`
-            :` <img
+             : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
-              alt="${state.search.type === 'movie' ? result.title :
-            result.name}"
+              alt="${
+                state.search.type === 'movie' ? result.title : result.name
+              }"
             />`
-            
          }
           </a>
           <div class="card-body">
-            <h5 class="card-title">${state.search.type === 'movie' ? result.title :
-            result.name}</h5>
+            <h5 class="card-title">${
+              state.search.type === 'movie' ? result.title : result.name
+            }</h5>
             <p class="card-text">
-              <small class="text-muted">Release: ${state.search.type === 'movie' ? result.release_date :
-            result.first_air_date}</small>
+              <small class="text-muted">Release: ${
+                state.search.type === 'movie'
+                  ? result.release_date
+                  : result.first_air_date
+              }</small>
             </p>
           </div>
         `;
 
-
-        document.querySelector('#search-results-heading').innerHTML = `
+    document.querySelector('#search-results-heading').innerHTML = `
         <h2>${results.length} of ${state.search.totalResults} Results for ${state.search.term}</h2>
-        `
+        `;
 
-        document.querySelector('#search-results').appendChild(div);
-    });
+    document.querySelector('#search-results').appendChild(div);
+  });
 
-    displayPagination();
+  displayPagination();
 }
-
 
 //To display pagination for search
 function displayPagination() {
-    const div = document.createElement('div');
-    div.classList.add('pagination');
-    div.innerHTML = `
+  const div = document.createElement('div');
+  div.classList.add('pagination');
+  div.innerHTML = `
           <button class="btn btn-primary" id="prev">Prev</button>
           <button class="btn btn-primary" id="next">Next</button>
           <div class="page-counter">Page ${state.search.page} of ${state.search.totalPages}</div> 
     `;
-    
-    
-    document.querySelector('#pagination').appendChild(div);
 
-//To disable prev button if on first page 
-    if (state.search.page === 1) {
-        document.querySelector('#prev').disabled = true;
-    }
+  document.querySelector('#pagination').appendChild(div);
 
-//To disable next button if on last page 
-    if (state.search.page === state.search.totalPages) {
-        document.querySelector('#next').disabled = true;
-    }
+  //To disable prev button if on first page
+  if (state.search.page === 1) {
+    document.querySelector('#prev').disabled = true;
+  }
 
-//To go to next page
-    document.querySelector('#next').addEventListener('click', async () => {
-        state.search.page++;
-        const { results, total_pages } = await searchAPIData();
-        displaySearchResults(results);
-    })
-  
+  //To disable next button if on last page
+  if (state.search.page === state.search.totalPages) {
+    document.querySelector('#next').disabled = true;
+  }
+
+  //To go to next page
+  document.querySelector('#next').addEventListener('click', async () => {
+    state.search.page++;
+    const { results, total_pages } = await searchAPIData();
+    displaySearchResults(results);
+  });
+
   //To make prev button functional
-   document.querySelector('#prev').addEventListener('click', async () => {
-        state.search.page--;
-        const { results, total_pages } = await searchAPIData();
-        displaySearchResults(results);
-    })
+  document.querySelector('#prev').addEventListener('click', async () => {
+    state.search.page--;
+    const { results, total_pages } = await searchAPIData();
+    displaySearchResults(results);
+  });
 }
 
-
-// FETCH data from TMDB 
+// FETCH data from TMDB
 
 async function fetchAPIData(endpoint) {
-     //Api key is showing because this is a small project
-     const API_KEY = state.api.apiKey;
-     const API_URL = state.api.apiUrl;
-     
+  //Api key is showing because this is a small project
+  const API_KEY = state.api.apiKey;
+  const API_URL = state.api.apiUrl;
 
-     showSpinner();
+  showSpinner();
 
-  const response = await fetch(`${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`);
+  const response = await fetch(
+    `${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`
+  );
   const data = await response.json();
-  console.log(data)
-   
+  console.log(data);
 
-
-     hideSpinner();
-     return data;
+  hideSpinner();
+  return data;
 }
- 
+
 //To make request to Search
 async function searchAPIData() {
-     
-     const API_KEY = state.api.apiKey;
-     const API_URL = state.api.apiUrl;
-     showSpinner();
+  const API_KEY = state.api.apiKey;
+  const API_URL = state.api.apiUrl;
+  showSpinner();
 
-  const response = await fetch(`${API_URL}search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}&page=${state.search.page}`);
-    const data = await response.json();
-   
-    hideSpinner();
-     return data;
- }
+  const response = await fetch(
+    `${API_URL}/search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}&page=${state.search.page}`
+  );
+  const data = await response.json();
 
-
-
+  hideSpinner();
+  return data;
+}
 
 //adding and hiding spinner
 function showSpinner() {
-     document.querySelector('.spinner').classList.add('show')
+  document.querySelector('.spinner').classList.add('show');
 }
- function hideSpinner() {
-     document.querySelector('.spinner').classList.remove('show')
- }
+function hideSpinner() {
+  document.querySelector('.spinner').classList.remove('show');
+}
 
 // To show active link
-function  showActiveLink() {
-    const links = document.querySelectorAll('.nav-link');
-    links.forEach(link => {
-        if (link.getAttribute('href')=== state.currentPage) {
-            link.classList.add('active');
-        }
-    });
+function showActiveLink() {
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach((link) => {
+    if (link.getAttribute('href') === state.currentPage) {
+      link.classList.add('active');
+    }
+  });
 }
 
 // To Add commas to numbers
 function addCommasToNumbers(number) {
-     return number.toLocaleString();
+  return number.toLocaleString();
 }
 
-//To show alert 
+//To show alert
 function showAlert(message, className = 'error') {
-    const alertEl = document.createElement('div');
-    alertEl.classList.add('alert', className)
-    alertEl.appendChild(document.createTextNode(message));
-    document.querySelector('#alert').appendChild(alertEl);
+  const alertEl = document.createElement('div');
+  alertEl.classList.add('alert', className);
+  alertEl.appendChild(document.createTextNode(message));
+  document.querySelector('#alert').appendChild(alertEl);
 
-    setTimeout(() => alertEl.remove(), 3000);
+  setTimeout(() => alertEl.remove(), 3000);
 }
-
 
 //To initialize app
 
 function init() {
-    switch (state.currentPage) {
-        case '/':
-        case '/index.html':
-            displaySlider();
-           displayPopularMovies();   
-            break;
-        case '/movie-details.html':
-            displayMovieDetails();;
-            break;
-        case '/shows.html':
-            displayPopularShows();
-            break;
-        case '/tv-details.html':
-            displayShowDetails();
-            break;
-        case '/search.html':
-            search();
-            break; 
-    }
+  switch (state.currentPage) {
+    case '/':
+    case '/index.html':
+      displaySlider();
+      displayPopularMovies();
+      break;
+    case '/movie-details.html':
+      displayMovieDetails();
+      break;
+    case '/shows.html':
+      displayPopularShows();
+      break;
+    case '/tv-details.html':
+      displayShowDetails();
+      break;
+    case '/search.html':
+      search();
+      break;
+  }
 
-    showActiveLink();
+  showActiveLink();
 }
 
 document.addEventListener('DOMContentLoaded', init);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
