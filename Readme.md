@@ -1,4 +1,4 @@
-### FLICKS AND CHILL - Live Site URL: [Click here to check it out!]()
+### FLICKS AND CHILL.  - Live Site URL: [Click here to check it out!]()
 
 
 - ## Table of contents
