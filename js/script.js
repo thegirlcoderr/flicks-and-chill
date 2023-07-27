@@ -419,24 +419,25 @@ function displayPagination() {
 
 
 // FETCH data from TMDB 
-
 async function fetchAPIData(endpoint) {
-     //Api key is showing because this is a small project
-     const API_KEY = state.api.apiKey;
-     const API_URL = state.api.apiUrl;
-     
+    const API_KEY = state.api.apiKey;
+    const API_URL = state.api.apiUrl;
 
-     showSpinner();
+    showSpinner();
 
-  const response = await fetch(`${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`);
-  const data = await response.json();
-  console.log(data)
-   
-
-
-     hideSpinner();
-     return data;
+    try {
+        const response = await fetch(`${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`);
+        const data = await response.json();
+        console.log(data); // Log the API response to check its content
+        hideSpinner();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        hideSpinner();
+        throw error; // Rethrow the error to handle it in the calling function
+    }
 }
+
  
 //To make request to Search
 async function searchAPIData() {
