@@ -4,7 +4,6 @@
 - ## Table of contents
 
 - [Overview](#overview)
- 
   - [Links](#links)
   - [Technologies Used](#technologies-used)
   - [What I learned](#what-i-learned)
@@ -14,6 +13,8 @@
 ## Overview
 
 Flix and Chill is your go-to web app for exploring a wide selection of popular movies and TV shows. Discover new releases, view detailed information, and immerse yourself in the world of entertainment. With Flix and Chill, finding your next movie or show has never been easier.
+
+
 
 ### Features
 
