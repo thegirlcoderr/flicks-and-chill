@@ -14,7 +14,7 @@ const state = {
         
     }
 };
-const PROXY_URL = 'https://cors-anywhere.herokuapp.com'
+
 //Display Popular Movies
 async function displayPopularMovies() {
     const { results } = await fetchAPIData('movie/popular');
@@ -428,13 +428,7 @@ async function fetchAPIData(endpoint) {
 
      showSpinner();
 
-  const response = await fetch(`${PROXY_URL}/${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`, {
-    headers: {
-         'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
-    },
-    
-     });
+  const response = await fetch(`${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`);
   const data = await response.json();
   console.log(data)
    
@@ -451,15 +445,7 @@ async function searchAPIData() {
      const API_URL = state.api.apiUrl;
      showSpinner();
 
-  const response = await fetch(`${PROXY_URL}/${API_URL}search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}&page=${state.search.page}`,
-    {
-      headers: {
-      'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      
-      },
-   
-   });
+  const response = await fetch(`${API_URL}search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}&page=${state.search.page}`);
     const data = await response.json();
    
     hideSpinner();
