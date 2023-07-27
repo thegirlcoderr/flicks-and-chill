@@ -432,7 +432,8 @@ async function fetchAPIData(endpoint) {
     headers: {
          'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
-       }
+    },
+    mode :"no-cors"
      });
      const data = await response.json();
    
@@ -454,7 +455,8 @@ async function searchAPIData() {
       headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
-    }
+      },
+    mode :"no-cors"
    });
     const data = await response.json();
    
