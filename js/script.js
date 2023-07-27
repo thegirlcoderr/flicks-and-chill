@@ -10,7 +10,7 @@ const state = {
     api: {
         //Api key is showing because this is a small project
         apiKey: 'e3bcd3ddedc1aeb5f13eda82709a14e1',
-        apiUrl : 'http://api.themoviedb.org/3'
+        apiUrl : 'http://api.themoviedb.org/3/'
         
     }
 };
@@ -322,8 +322,19 @@ if (results.length === 0) {
 }  
     
 }
+
+
 //To display search result
-function displaySearchResults(results) {
+ async function displaySearchResults(results) {
+
+   
+// To clear previous results
+    document.querySelector('#search-results').innerHTML = '';
+    document.querySelector('#search-results-heading').innerHTML = '';
+    document.querySelector('#pagination').innerHTML = '';
+
+
+       
     results.forEach(result => {
         const div = document.createElement('div');
         div.classList.add('card')
@@ -363,6 +374,47 @@ function displaySearchResults(results) {
 
         document.querySelector('#search-results').appendChild(div);
     });
+
+    displayPagination();
+}
+
+
+//To display pagination for search
+function displayPagination() {
+    const div = document.createElement('div');
+    div.classList.add('pagination');
+    div.innerHTML = `
+          <button class="btn btn-primary" id="prev">Prev</button>
+          <button class="btn btn-primary" id="next">Next</button>
+          <div class="page-counter">Page ${state.search.page} of ${state.search.totalPages}</div> 
+    `;
+    
+    
+    document.querySelector('#pagination').appendChild(div);
+
+//To disable prev button if on first page 
+    if (state.search.page === 1) {
+        document.querySelector('#prev').disabled = true;
+    }
+
+//To disable next button if on last page 
+    if (state.search.page === state.search.totalPages) {
+        document.querySelector('#next').disabled = true;
+    }
+
+//To go to next page
+    document.querySelector('#next').addEventListener('click', async () => {
+        state.search.page++;
+        const { results, total_pages } = await searchAPIData();
+        displaySearchResults(results);
+    })
+  
+  //To make prev button functional
+   document.querySelector('#prev').addEventListener('click', async () => {
+        state.search.page--;
+        const { results, total_pages } = await searchAPIData();
+        displaySearchResults(results);
+    })
 }
 
 
@@ -394,12 +446,14 @@ async function searchAPIData() {
 
      showSpinner();
 
-    const response = await fetch(`${API_URL}/search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}`);
-     const data = await response.json();
+    const response = await fetch(`${API_URL}search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}&page=${state.search.page}`);
+    const data = await response.json();
    
     hideSpinner();
      return data;
  }
+
+
 
 
 //adding and hiding spinner
