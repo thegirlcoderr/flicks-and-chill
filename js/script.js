@@ -419,30 +419,24 @@ function displayPagination() {
 
 
 // FETCH data from TMDB 
-async function searchAPIData() {
-    const API_KEY = state.api.apiKey;
-    const API_URL = state.api.apiUrl;
-    showSpinner();
 
-    try {
-        const response = await fetch(`${API_URL}search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}&page=${state.search.page}`);
+async function fetchAPIData(endpoint) {
+     //Api key is showing because this is a small project
+     const API_KEY = state.api.apiKey;
+     const API_URL = state.api.apiUrl;
+     
 
-        // Check if the response status is 204 (No Content)
-        if (response.status === 204) {
-            // Handle case when there are no search results
-            return { results: [], total_pages: 0, page: 0, total_results: 0 };
-        }
+     showSpinner();
 
-        const data = await response.json();
-        hideSpinner();
-        return data;
-    } catch (error) {
-        console.error('Error fetching search data:', error);
-        hideSpinner();
-        throw error;
-    }
+  const response = await fetch(`${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`);
+  const data = await response.json();
+  console.log(data)
+   
+
+
+     hideSpinner();
+     return data;
 }
-
  
 //To make request to Search
 async function searchAPIData() {
