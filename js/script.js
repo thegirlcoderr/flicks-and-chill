@@ -433,7 +433,7 @@ async function fetchAPIData(endpoint) {
          'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
     },
-    mode :"no-cors"
+    mode :"cors"
      });
      const data = await response.json();
    
@@ -456,7 +456,7 @@ async function searchAPIData() {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
       },
-    mode :"no-cors"
+    mode :"cors"
    });
     const data = await response.json();
    
