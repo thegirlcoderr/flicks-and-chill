@@ -8,7 +8,7 @@ Your Vanilla JS Hub for Movies and TV Shows
   - [Technologies Used](#technologies-used)
   - [What I learned](#what-i-learned)
   - [Acknowledgment](#acknowledgment)
-- [Author](#author)
+  - [Author](#author)
 
 ### Overview
 
@@ -32,7 +32,7 @@ Flix and Chill is your go-to web app for exploring a wide selection of popular m
 - Swiper.js (for the movie slider)
 - The Movie Database (TMDB) API
 
-## What I Learned
+### What I Learned
 
 Through this project, I gained valuable experience in the following areas:
 
@@ -48,7 +48,7 @@ Through this project, I gained valuable experience in the following areas:
 - [@bradtraversy](https://github.com/bradtraversy)
 
 
-## Author
+### Author
 
 - Github -[@thegirlcoderr](https://github.com/thegirlcoderr)
 
