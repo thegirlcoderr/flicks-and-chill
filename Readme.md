@@ -1,16 +1,16 @@
-### FLICKS AND CHILL.  - Live Site URL: [Click here to check it out!]()
+# Flix and Chill
 
-
-- ## Table of contents
-
-- [Overview](#overview)
+Your Vanilla JS Hub for Movies and TV Shows
+- Live Site URL: [Click here to check it out!]()
+- ### Table of contents
+  - [Overview](#overview)
   - [Links](#links)
   - [Technologies Used](#technologies-used)
   - [What I learned](#what-i-learned)
   - [Acknowledgment](#acknowledgment)
 - [Author](#author)
 
-## Overview
+### Overview
 
 Flix and Chill is your go-to web app for exploring a wide selection of popular movies and TV shows. Discover new releases, view detailed information, and immerse yourself in the world of entertainment. With Flix and Chill, finding your next movie or show has never been easier.
 
