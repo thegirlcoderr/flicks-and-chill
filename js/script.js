@@ -428,7 +428,12 @@ async function fetchAPIData(endpoint) {
 
      showSpinner();
 
-     const response = await fetch(`${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`);
+  const response = await fetch(`${API_URL}/${endpoint}?api_key=${API_KEY}&language=en-US`, {
+    headers: {
+         'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+       }
+     });
      const data = await response.json();
    
 
@@ -442,11 +447,15 @@ async function searchAPIData() {
      
      const API_KEY = state.api.apiKey;
      const API_URL = state.api.apiUrl;
-     
-
      showSpinner();
 
-    const response = await fetch(`${API_URL}search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}&page=${state.search.page}`);
+  const response = await fetch(`${API_URL}search/${state.search.type}?api_key=${API_KEY}&language=en-US&query=${state.search.term}&page=${state.search.page}`,
+    {
+      headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+   });
     const data = await response.json();
    
     hideSpinner();
