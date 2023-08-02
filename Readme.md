@@ -4,7 +4,7 @@ Your Vanilla JS Hub for Movies and TV Shows
 - Live Site URL: [Click here to check it out!](https://flicksandchill.netlify.app/)
 - ### Table of contents
   - [Overview](#overview)
-  - [Links](#links)
+  - [Features](#features)
   - [Technologies Used](#technologies-used)
   - [What I learned](#what-i-learned)
   - [Acknowledgment](#acknowledgment)
