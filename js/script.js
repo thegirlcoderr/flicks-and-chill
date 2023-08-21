@@ -22,19 +22,18 @@ async function displayPopularMovies() {
     movieDiv.classList.add('card');
     movieDiv.innerHTML = `
           <a href="movie-details.html?id=${movie.id}">
-         ${
-           movie.poster_path
-             ? `<img
+         ${movie.poster_path
+        ? `<img
               src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
               class="card-img-top"
               alt="${movie.title}"
             />`
-             : ` <img
+        : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
               alt="${movie.title}"
             />`
-         }
+      }
           </a>
           <div class="card-body">
             <h5 class="card-title">${movie.title}</h5>
@@ -56,19 +55,18 @@ async function displayPopularShows() {
     showsDiv.classList.add('card');
     showsDiv.innerHTML = `
           <a href="tv-details.html?id=${show.id}">
-         ${
-           show.poster_path
-             ? `<img
+         ${show.poster_path
+        ? `<img
               src="https://image.tmdb.org/t/p/w500${show.poster_path}"
               class="card-img-top"
               alt="${show.name}"
             />`
-             : ` <img
+        : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
               alt="${show.name}"
             />`
-         }
+      }
           </a>
           <div class="card-body">
             <h5 class="card-title">${show.name}</h5>
@@ -94,19 +92,18 @@ async function displayMovieDetails() {
   div.innerHTML = `
      <div class="details-top">
           <div>
-             ${
-               movie.poster_path
-                 ? `<img
+             ${movie.poster_path
+      ? `<img
               src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
               class="card-img-top"
               alt="${movie.title}"
             />`
-                 : ` <img
+      : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
               alt="${movie.title}"
             />`
-             }
+    }
           </div>
           <div>
             <h2>${movie.title}</h2>
@@ -124,9 +121,8 @@ async function displayMovieDetails() {
 
           </ul>
 
-          <a href="${
-            movie.homepage
-          }" target="_blank" class="btn">Visit Movie Homepage</a>
+          <a href="${movie.homepage
+    }" target="_blank" class="btn">Visit Movie Homepage</a>
 
           </div>
 
@@ -136,20 +132,19 @@ async function displayMovieDetails() {
           <h2>Movie Info</h2>
           <ul>
             <li><span class="text-secondary">Budget:</span> $${addCommasToNumbers(
-              movie.budget
-            )}</li>
+      movie.budget
+    )}</li>
             <li><span class="text-secondary">Revenue:</span> $${addCommasToNumbers(
-              movie.revenue
-            )}</li>
-            <li><span class="text-secondary">Runtime:</span> ${
-              movie.runtime
-            } minutes</li>
+      movie.revenue
+    )}</li>
+            <li><span class="text-secondary">Runtime:</span> ${movie.runtime
+    } minutes</li>
             <li><span class="text-secondary">Status:</span> ${movie.status}</li>
           </ul>
           <h4>Production Companies</h4>
           <div class="list-group"> ${movie.production_companies
-            .map((company) => `<span>${company.name}</span>`)
-            .join(', ')}</div>
+      .map((company) => `<span>${company.name}</span>`)
+      .join(', ')}</div>
         </div>`;
 
   document.querySelector('#movie-details').appendChild(div);
@@ -167,19 +162,18 @@ async function displayShowDetails() {
   div.innerHTML = `
      <div class="details-top">
           <div>
-             ${
-               show.poster_path
-                 ? `<img
+             ${show.poster_path
+      ? `<img
               src="https://image.tmdb.org/t/p/w500${show.poster_path}"
               class="card-img-top"
               alt="${show.name}"
             />`
-                 : ` <img
+      : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
               alt="${show.name}"
             />`
-             }
+    }
           </div>
           <div>
             <h2>${show.name}</h2>
@@ -197,9 +191,8 @@ async function displayShowDetails() {
 
           </ul>
 
-          <a href="${
-            show.homepage
-          }" target="_blank" class="btn">Visit Show Homepage</a>
+          <a href="${show.homepage
+    }" target="_blank" class="btn">Visit Show Homepage</a>
 
           </div>
 
@@ -208,21 +201,18 @@ async function displayShowDetails() {
         <div class="details-bottom">
           <h2>Movie Info</h2>
           <ul>
-            <li><span class="text-secondary">Number of Episodes</span> ${
-              show.number_of_episodes
-            }</li>
-            <li><span class="text-secondary">Number of Seasons</span> ${
-              show.number_of_seasons
-            }</li>
-            <li><span class="text-secondary">Last Episode to Air:</span> ${
-              show.last_episode_to_air.name
-            }</li>
+            <li><span class="text-secondary">Number of Episodes</span> ${show.number_of_episodes
+    }</li>
+            <li><span class="text-secondary">Number of Seasons</span> ${show.number_of_seasons
+    }</li>
+            <li><span class="text-secondary">Last Episode to Air:</span> ${show.last_episode_to_air.name
+    }</li>
             <li><span class="text-secondary">Status:</span> ${show.status}</li>
           </ul>
           <h4>Production Companies</h4>
           <div class="list-group"> ${show.production_companies
-            .map((company) => `<span>${company.name}</span>`)
-            .join(', ')}</div>
+      .map((company) => `<span>${company.name}</span>`)
+      .join(', ')}</div>
         </div>`;
 
   document.querySelector('#show-details').appendChild(div);
@@ -338,34 +328,29 @@ async function displaySearchResults(results) {
     div.classList.add('card');
     div.innerHTML = `
           <a href="${state.search.type}-details.html?id=${result.id}">
-         ${
-           result.poster_path
-             ? `<img
+         ${result.poster_path
+        ? `<img
               src="https://image.tmdb.org/t/p/w500/${result.poster_path}"
               class="card-img-top"
-              alt="${
-                state.search.type === 'movie' ? result.title : result.name
-              }"
+              alt="${state.search.type === 'movie' ? result.title : result.name
+        }"
             />`
-             : ` <img
+        : ` <img
               src="../images/no-image.jpg"
               class="card-img-top"
-              alt="${
-                state.search.type === 'movie' ? result.title : result.name
-              }"
+              alt="${state.search.type === 'movie' ? result.title : result.name
+        }"
             />`
-         }
+      }
           </a>
           <div class="card-body">
-            <h5 class="card-title">${
-              state.search.type === 'movie' ? result.title : result.name
-            }</h5>
+            <h5 class="card-title">${state.search.type === 'movie' ? result.title : result.name
+      }</h5>
             <p class="card-text">
-              <small class="text-muted">Release: ${
-                state.search.type === 'movie'
-                  ? result.release_date
-                  : result.first_air_date
-              }</small>
+              <small class="text-muted">Release: ${state.search.type === 'movie'
+        ? result.release_date
+        : result.first_air_date
+      }</small>
             </p>
           </div>
         `;
